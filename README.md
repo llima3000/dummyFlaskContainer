@@ -6,8 +6,6 @@ Created to test some configurations with containers where we need test scale pro
 
 ```
 python3 -m venv env
-
-pip install flask -y
-
-source venv/bin/activate
+source env/bin/activate
+pip3 install -r requirements.txt
 ```
