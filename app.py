@@ -5,10 +5,26 @@ from datetime import datetime
 app = Flask(__name__)
 
 @app.route('/')
-def hello_world():
+def rootpath():
    response = {}
    response['startTime'] = datetime.now()
    sleep(5)
+   response['stopTime'] = datetime.now()
+   response['totalSpent'] = response['stopTime'] - response['startTime']
+   response['totalSpent'] = response['totalSpent'].total_seconds()
+   response['startTime'] = response['startTime'].strftime('%Y-%m-%d %H:%M:%S')
+   response['stopTime'] = response['stopTime'].strftime('%Y-%m-%d %H:%M:%S')
+   if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
+      response['REQUESTER'] = request.environ['REMOTE_ADDR']
+   else:
+      response['REQUESTER'] = request.environ['HTTP_X_FORWARDED_FOR']
+   
+   return jsonify(response)
+
+@app.route('/hm')
+def health_monitor():
+   response = {}
+   response['startTime'] = datetime.now()
    response['stopTime'] = datetime.now()
    response['totalSpent'] = response['stopTime'] - response['startTime']
    response['totalSpent'] = response['totalSpent'].total_seconds()
