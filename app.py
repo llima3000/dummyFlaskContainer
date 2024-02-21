@@ -21,7 +21,7 @@ def rootpath():
    
    return jsonify(response)
 
-@app.route('/hm')
+@app.route('/hm/')
 def health_monitor():
    response = {}
    response['startTime'] = datetime.now()
